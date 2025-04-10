@@ -1,0 +1,674 @@
+<!doctype html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="pragma" content="no-cache" />
+    <meta http-equiv="expires" content="-1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- ▼▼▼ AJUSTA EL TÍTULO SI LO DESEAS ▼▼▼ -->
+    <title>Conexión WiFi - TuWiFi.Net</title>
+
+    <!-- ▼▼▼ OPTIMIZACIÓN CACHÉ MIKROTIK ▼▼▼ -->
+    <!-- <link href="bootstrap.min.css" rel="stylesheet"> -->
+    <!-- <link rel="stylesheet" href="bootstrap-icons.min.css"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <!-- Google Fonts (Opcional) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Fin Optimización Caché -->
+
+    <style>
+        /* --- Variables Comunes y Tema Claro (Base) --- */
+        :root {
+            /* Colores Principales */
+            --primary-color: #4f46e5; --primary-hover: #4338ca; --primary-color-rgb: 79, 70, 229;
+            --secondary-color: #64748b; --secondary-hover: #475569;
+            /* Fondos y Texto */
+            --background-gradient: linear-gradient(135deg, #f0f4ff 0%, #e6e9ff 100%);
+            --card-bg: #ffffff; --text-dark: #1f2937; --text-light: #6b7280; --text-on-primary: #ffffff;
+            /* Bordes e Inputs */
+            --border-color: #d1d5db; --input-bg: #ffffff; --input-icon-bg: #f3f4f6;
+            /* Componentes */
+            --terms-border: var(--border-color);
+            /* ▼▼▼ Fondo Scrollbox Términos cambiado ▼▼▼ */
+            --terms-scrollbox-bg: var(--input-icon-bg); /* #f3f4f6 */
+            --alert-info-bg: #e0f2fe; --alert-info-text: #075985; --alert-info-icon: #0ea5e9; --alert-info-icon-rgb: 14, 165, 233;
+            --alert-danger-bg: #fee2e2; --alert-danger-text: #b91c1c; --alert-danger-icon: #ef4444; --alert-danger-icon-rgb: 239, 68, 68;
+            --alert-secondary-bg: #f8fafc; --alert-secondary-text: #334155; --alert-secondary-icon: var(--secondary-color);
+            --accordion-border: var(--border-color);
+            --accordion-summary-bg: #f9fafb; --accordion-summary-hover: #f3f4f6;
+            --accordion-content-bg: #ffffff;
+            /* Botones Específicos */
+            --trial-btn-bg: #10b981; --trial-btn-hover: #059669;
+            --whatsapp-btn-bg: #25D366; --whatsapp-btn-hover: #1DAE54;
+            --btn-disabled-bg: #9ca3af; --btn-disabled-opacity: 0.65;
+            /* Variables Botones Acordeón */
+            --accordion-btn-text: #ffffff;
+            --accordion-btn-orange-bg: #22c55e; --accordion-btn-orange-hover: #16a34a; /* #f97316; #ea580c; NARANJA*/
+            --accordion-btn-blue-bg: var(--primary-color); --accordion-btn-blue-hover: var(--primary-hover);
+            --accordion-btn-green-bg: #22c55e; --accordion-btn-green-hover: #16a34a;
+            --accordion-btn-gray-bg: var(--secondary-color); --accordion-btn-gray-hover: var(--secondary-hover);
+        }
+
+        /* --- Tema "Oscuro" (Versión Atenuada del Claro) --- */
+        .dark-theme {
+            /* Colores Principales */
+            --primary-color: #4f46e5; --primary-hover: #6366f1; --primary-color-rgb: 79, 70, 229;
+            --secondary-color: #64748b; --secondary-hover: #475569;
+            /* Fondos y Texto */
+            --background-gradient: linear-gradient(135deg, #e5e7eb 0%, #d1d5db 100%);
+            --card-bg: #f9fafb; --text-dark: #1f2937; --text-light: #4b5563; --text-on-primary: #ffffff;
+            /* Bordes e Inputs */
+            --border-color: #c7ced6; --input-bg: #ffffff; --input-icon-bg: #e5e7eb; /* Gris más oscuro para iconos */
+            /* Componentes */
+            --terms-border: var(--border-color);
+             /* ▼▼▼ Fondo Scrollbox Términos cambiado ▼▼▼ */
+            --terms-scrollbox-bg: var(--input-icon-bg); /* #e5e7eb */
+            --alert-info-bg: #e0f2fe; --alert-info-text: #075985; --alert-info-icon: #0ea5e9;
+            --alert-danger-bg: #fee2e2; --alert-danger-text: #b91c1c; --alert-danger-icon: #ef4444;
+            --alert-secondary-bg: #e5e7eb; --alert-secondary-text: #334155; --alert-secondary-icon: var(--secondary-color);
+            --accordion-border: var(--border-color);
+            --accordion-summary-bg: #f3f4f6; --accordion-summary-hover: #e5e7eb;
+            --accordion-content-bg: #ffffff;
+            /* Botones Específicos */
+            --trial-btn-bg: #10b981; --trial-btn-hover: #059669;
+            --whatsapp-btn-bg: #25D366; --whatsapp-btn-hover: #1DAE54;
+            --btn-disabled-bg: #9ca3af; --btn-disabled-opacity: 0.7;
+            /* Variables Botones Acordeón (Mismos colores) */
+            --accordion-btn-text: #ffffff;
+            --accordion-btn-orange-bg: #22c55e; --accordion-btn-orange-hover: #16a34a; /* #f97316; #ea580c; NARANJA*/
+            --accordion-btn-blue-bg: var(--primary-color); --accordion-btn-blue-hover: var(--primary-hover);
+            --accordion-btn-green-bg: #22c55e; --accordion-btn-green-hover: #16a34a;
+            --accordion-btn-gray-bg: var(--secondary-color); --accordion-btn-gray-hover: var(--secondary-hover);
+        }
+
+        /* --- Estilos Generales --- */
+        body { background: var(--background-gradient); color: var(--text-light); display: flex; align-items: center; justify-content: center; min-height: 100vh; padding: 1rem; font-family: 'Inter', system-ui, sans-serif; transition: background-color 0.3s ease, color 0.3s ease; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        .login-container { background-color: var(--card-bg); color: var(--text-dark); border-radius: 1rem; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.20); overflow: hidden; max-width: 580px; width: 100%; transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease; border: 1px solid var(--border-color); }
+        .login-header { background-color: var(--primary-color); color: var(--text-on-primary); padding: 2rem; text-align: center; border-bottom: 1px solid transparent; }
+        .login-header h2 { margin: 0; font-weight: 700; font-size: 1.8rem; }
+        .login-header .logo { max-height: 50px; width: auto; }
+        .login-body { padding: 2rem 2.5rem; }
+
+        /* Inputs y Formularios */
+        .form-label { font-weight: 600; color: var(--text-dark); margin-bottom: 0.5rem; }
+        .input-group { border: 1px solid var(--border-color); border-radius: 0.375rem; overflow: hidden; transition: border-color 0.2s ease, box-shadow 0.2s ease; background-color: var(--input-bg); }
+        .input-group:focus-within { border-color: var(--primary-color); box-shadow: 0 0 0 0.25rem rgba(var(--primary-color-rgb), 0.25); }
+        .input-group-text { background-color: var(--input-icon-bg); border: none; color: var(--secondary-color); padding: 0.75rem 1rem; border-right: 1px solid var(--border-color); }
+        .form-control { border: none; padding: 0.75rem 1rem; font-size: 1rem; background-color: transparent; color: var(--text-dark); }
+        .form-control::placeholder { color: var(--text-light); opacity: 0.8; }
+        .form-control:focus { outline: none; box-shadow: none !important; background-color: transparent; color: var(--text-dark); }
+
+        /* Sección de Términos (Dentro del Acordeón) */
+        .terms-scrollbox { height: 100px; overflow-y: auto; border: 1px solid var(--terms-border); padding: 0.75rem 1rem; margin-bottom: 1rem; font-size: 0.85em; background-color: var(--terms-scrollbox-bg); color: var(--text-dark); border-radius: 0.25rem; }
+        .terms-scrollbox h6 { font-size: 1.1em; font-weight: bold; margin-bottom: 0.75rem; color: var(--text-dark); }
+        /* ▼▼▼ Texto justificado en párrafos de términos ▼▼▼ */
+        .terms-scrollbox p { text-align: justify; }
+        .form-check-label { font-size: 0.9rem; color: var(--text-dark); cursor: pointer; }
+        .form-check-input { border-color: var(--secondary-color); cursor: pointer; background-color: var(--input-bg); }
+        .form-check-input:checked { background-color: var(--primary-color); border-color: var(--primary-color); }
+        .form-check-input:focus { box-shadow: 0 0 0 0.25rem rgba(var(--primary-color-rgb), 0.25); border-color: var(--primary-color); }
+
+        /* Alertas Personalizadas */
+        .alert-custom { border-radius: 0.5rem; padding: 1rem 1.25rem; margin-bottom: 1.5rem; display: flex; align-items: center; border: 1px solid transparent; font-weight: 500; }
+        .alert-custom i { font-size: 1.25rem; margin-right: 0.8rem; flex-shrink: 0; }
+        .alert-info { background-color: var(--alert-info-bg); color: var(--alert-info-text); border-color: rgba(var(--alert-info-icon-rgb, 14 165 233), 0.3); } .alert-info i { color: var(--alert-info-icon); }
+        .alert-danger { background-color: var(--alert-danger-bg); color: var(--alert-danger-text); border-color: rgba(var(--alert-danger-icon-rgb, 239 68 68), 0.3); } .alert-danger i { color: var(--alert-danger-icon); }
+        .alert-secondary { background-color: var(--alert-secondary-bg); color: var(--alert-secondary-text); border-color: var(--border-color); } .alert-secondary i { color: var(--alert-secondary-icon); }
+
+        /* Botones Principales */
+        .btn-action { border: none; padding: 0.8rem 1.5rem; font-size: 1.1rem; font-weight: 600; transition: background-color 0.2s ease, transform 0.1s ease, opacity 0.2s ease, box-shadow 0.2s ease; width: 100%; border-radius: 0.375rem; cursor: pointer; display: inline-flex; align-items: center; justify-content: center; }
+        .btn-action i { margin-right: 0.5rem; }
+        .btn-conectar { background-color: var(--primary-color); color: var(--text-on-primary); }
+        .btn-trial { background-color: var(--trial-btn-bg); color: white; margin-top: 0.75rem; font-size: 1rem; padding: 0.6rem 1.2rem; }
+        .btn-action:hover:not(.visually-disabled) { transform: translateY(-2px); box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); }
+        .btn-conectar:hover:not(.visually-disabled) { background-color: var(--primary-hover); }
+        .btn-trial:hover:not(.visually-disabled) { background-color: var(--trial-btn-hover); }
+        .btn-action.visually-disabled { background-color: var(--btn-disabled-bg); opacity: var(--btn-disabled-opacity); cursor: not-allowed; transform: none; box-shadow: none; }
+
+        /* Acordeón CSS Puro */
+        .accordion-css { border: 1px solid var(--accordion-border); border-radius: 0.5rem; overflow: hidden; }
+        .accordion-css details { border-bottom: 1px solid var(--accordion-border); }
+        .accordion-css details:last-of-type { border-bottom: none; }
+        .accordion-css summary { display: flex; align-items: center; padding: 1rem 1.5rem; cursor: pointer; color: var(--text-dark); font-weight: 600; transition: background-color 0.2s ease; position: relative; list-style: none; }
+        .accordion-css summary i { margin-right: 0.75rem; font-size: 1.1em; transition: color 0.2s ease; }
+        .accordion-css summary::after { content: '+'; position: absolute; right: 1.5rem; top: 50%; transform: translateY(-50%); font-size: 1.6rem; font-weight: 300; transition: transform 0.3s ease, color 0.2s ease; }
+        .accordion-css details[open] summary::after { content: '−'; }
+        .accordion-css summary::-webkit-details-marker { display: none; }
+        .accordion-css .accordion-content { padding: 1.5rem; background-color: var(--accordion-content-bg); color: var(--text-dark); font-size: 0.9rem; border-top: 1px solid var(--accordion-border); }
+        .accordion-css .accordion-content hr { border-top: 1px solid var(--border-color); margin: 1.25rem 0; }
+        .accordion-css .plan-list { list-style: none; padding-left: 0; margin-bottom: 0; }
+        .accordion-css .plan-list li { border-bottom: 1px dashed var(--border-color); padding: 0.85rem 0; }
+        .accordion-css .plan-list li:last-child { border-bottom: none; }
+        .accordion-css .plan-list strong { color: var(--text-dark); font-weight: 600; }
+        .accordion-css .plan-price { font-weight: bold; font-size: 1.25em; color: var(--accordion-btn-green-hover); }
+        .accordion-content h6 { font-weight: bold; font-size: 1.1em; margin-top: 0.5rem; margin-bottom: 0.75rem; color: var(--primary-color); display: flex; align-items: center; }
+        .accordion-content h6 i { margin-right: 0.5rem; font-size: 1em; }
+        .accordion-content p { line-height: 1.6; margin-bottom: 1rem; }
+        .accordion-content p:last-child { margin-bottom: 0; }
+
+        /* Estilos Botones Acordeón por ID */
+        #terms-details summary,
+        #plans-details summary,
+        #payment-details summary,
+        #contact-details summary { color: var(--accordion-btn-text); }
+        #terms-details summary i, #terms-details summary::after,
+        #plans-details summary i, #plans-details summary::after,
+        #payment-details summary i, #payment-details summary::after,
+        #contact-details summary i, #contact-details summary::after { color: var(--accordion-btn-text); opacity: 0.9; }
+        /* Naranja */
+        #terms-details summary { background-color: var(--accordion-btn-orange-bg); }
+        #terms-details summary:hover { background-color: var(--accordion-btn-orange-hover); }
+        /* Azul */
+        #plans-details summary { background-color: var(--accordion-btn-blue-bg); }
+        #plans-details summary:hover { background-color: var(--accordion-btn-blue-hover); }
+        /* Verde */
+        #payment-details summary { background-color: var(--accordion-btn-green-bg); }
+        #payment-details summary:hover { background-color: var(--accordion-btn-green-hover); }
+        /* Gris */
+        #contact-details summary { background-color: var(--accordion-btn-gray-bg); }
+        #contact-details summary:hover { background-color: var(--accordion-btn-gray-hover); }
+
+        /* Botones WhatsApp */
+        .whatsapp-btn { background-color: var(--whatsapp-btn-bg); color: white !important; border: none; padding: 0.6rem 1.1rem; font-size: 0.9rem; transition: background-color 0.2s ease, transform 0.1s ease; border-radius: 0.375rem; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; font-weight: 500; }
+        .whatsapp-btn:hover { background-color: var(--whatsapp-btn-hover); color: white !important; transform: translateY(-1px); }
+        .whatsapp-btn i { margin-right: 0.4rem; }
+
+        /* Footer */
+        .footer-text { font-size: 0.8rem; color: var(--text-light); margin-top: 2.5rem; text-align: center; line-height: 1.5; }
+
+        /* --- Media Query para Móviles --- */
+        @media (max-width: 576px) {
+            body { padding: 0.5rem; }
+            .login-container { border-radius: 0.5rem; }
+            .login-header { padding: 1.5rem; }
+            .login-header h2 { font-size: 1.6rem; }
+            .login-body { padding: 1.5rem 1rem; }
+            .terms-scrollbox { height: 120px; font-size: 0.9em; }
+            .btn-action { font-size: 1rem; padding: 0.75rem 1.2rem; }
+            .btn-trial { font-size: 0.9rem; padding: 0.55rem 1rem; }
+            .accordion-css summary { padding: 0.9rem 1rem; font-size: 0.95em; }
+            .accordion-css summary::after { right: 1rem; font-size: 1.4rem; }
+            .accordion-css .accordion-content { padding: 1.25rem 1rem; font-size: 0.88rem; }
+            .whatsapp-btn { padding: 0.5rem 0.9rem; font-size: 0.85rem; margin-bottom: 0.5rem !important; }
+            .whatsapp-btn.me-3 { margin-right: 0 !important; }
+            .whatsapp-btn + .whatsapp-btn { margin-left: 0; }
+        }
+
+    </style>
+</head>
+<body class=""> <!-- La clase dark-theme se añadirá aquí con JS si es necesario -->
+
+    <!-- Formulario oculto para CHAP -->
+    $(if chap-id)
+    <form name="sendin" action="$(link-login-only)" method="post" style="display:none">
+        <input type="hidden" name="username" />
+        <input type="hidden" name="password" />
+        <input type="hidden" name="dst" value="$(link-orig)" />
+        <input type="hidden" name="popup" value="true" />
+    </form>
+    $(endif)
+
+    <div class="login-container">
+        <header class="login-header">
+            <!-- ▼▼▼ OPCIÓN 1: LOGO TEXTO (AJUSTA SI QUIERES) ▼▼▼ -->
+            <h2>www.TuWiFi.Net</h2>
+            <!-- ▼▼▼ OPCIÓN 2: LOGO IMAGEN (DESCOMENTA Y AJUSTA RUTA LOCAL) ▼▼▼ -->
+            <!-- <img src="logo-blanco.png" alt="Logo TuWiFi.Net" class="logo"> -->
+        </header>
+
+        <main class="login-body">
+
+            <form name="login" id="loginForm" action="$(link-login-only)" method="post" $(if chap-id) onsubmit="return false;" $(else) onsubmit="return checkTermsBeforeSubmit(event);" $(endif)>
+                <input type="hidden" name="dst" value="$(link-orig)" />
+                <input type="hidden" name="popup" value="true" />
+
+                <!-- === Área de Mensajes (Traducidos por JS) === -->
+                <div id="messageArea">
+                    $(if error)
+                    <div class="alert alert-danger alert-custom" role="alert">
+                        <i class="bi bi-exclamation-octagon-fill"></i><span data-original-error="$(error)">$(error)</span>
+                    </div>
+                    $(elif trial == 'yes')
+                     <!-- Mensaje de Trial se mueve cerca del botón -->
+                    $(else)
+                    <div class="alert alert-secondary alert-custom" role="alert">
+                         <i class="bi bi-info-circle-fill"></i><span>Por favor, inicia sesión o elige un plan.</span>
+                    </div>
+                    $(endif)
+                </div>
+                <!-- === Fin Área de Mensajes === -->
+
+                <!-- === Campos de Usuario y Contraseña === -->
+                <div class="mb-3">
+                    <label for="username" class="form-label">Usuario</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-person-fill"></i></span>
+                        <input name="username" id="username" type="text" value="$(username)" class="form-control" placeholder="Tu nombre de usuario" required aria-label="Nombre de usuario">
+                    </div>
+                </div>
+
+                <div class="mb-4"> <!-- Espacio antes del acordeón -->
+                    <label for="password" class="form-label">Contraseña</label>
+                    <div class="input-group">
+                        <span class="input-group-text"><i class="bi bi-lock-fill"></i></span>
+                        <input name="password" id="password" type="password" class="form-control" placeholder="Tu contraseña" required aria-label="Contraseña">
+                    </div>
+                </div>
+                <!-- === Fin Campos === -->
+
+                <!-- === Botón Conectar (Movido antes del acordeón) === -->
+                <div class="d-grid mb-3">
+                    <button id="connectButton" type="submit" class="btn btn-action btn-conectar visually-disabled">
+                        <i class="bi bi-shield-lock-fill"></i>¡Conectar Ya!
+                    </button>
+                </div>
+
+                 <!-- === Botón Prueba Gratuita (si aplica, movido antes del acordeón) === -->
+                 $(if trial == 'yes')
+                 <div class="d-grid mb-4"> <!-- Añadido mb-4 para separar del acordeón -->
+                      <p class="text-center mb-2 small" style="color: var(--primary-color);"><strong>¡Prueba gratuita disponible!</strong></p>
+                      <button type="button" id="trialButton" class="btn btn-action btn-trial visually-disabled">
+                          <i class="bi bi-stopwatch-fill"></i>¡Activar 15 Minutos Gratis!
+                      </button>
+                      <!-- Enlace real oculto para la prueba -->
+                      <a id="realTrialLink" href="$(link-login-only)?dst=$(link-orig-esc)&username=T-$(mac-esc)" style="display:none;"></a>
+                 </div>
+                 $(endif)
+                 <!-- === Fin Botón Prueba Gratuita === -->
+
+            </form> <!-- Fin del Formulario Principal -->
+
+            <!-- === Acordeón CSS Puro (Términos, Planes, Pago, Contacto) === -->
+            <div class="accordion-css mt-4" id="accordionInfo"> <!-- mt-4 para separar de botones -->
+
+                 <!-- === Sección Términos y Condiciones (Naranja) === -->
+                 <details id="terms-details"> <!-- ID añadido -->
+                    <summary><i class="bi bi-file-earmark-text-fill"></i>Términos y Condiciones</summary>
+                    <div class="accordion-content">
+                        <div class="terms-scrollbox">
+                        <!-- ▼▼▼ PEGA AQUÍ TUS TÉRMINOS Y CONDICIONES COMPLETOS ▼▼▼ -->
+                        <h6>Términos del Servicio</h6>
+                        <p><strong>1. Aceptación:</strong> Al usar este servicio de hotspot WiFi ("Servicio"), usted ("Usuario") acepta estar sujeto a estos Términos y Condiciones ("Términos"), de conformidad con lo establecido en las leyes venezolanas. Si no está de acuerdo, no utilice el Servicio.</p>
+                        <p><strong>2. Iniciativa:</strong> Somos un equipo de tecnólogos conformado por Raymond Soto y Kevin Soto, que buscamos y encontramos la manera de mejorar la calidad de vida de las personas mediante el uso de tecnologías ágiles, tales como el servicio de acceso a internet, para que llegue a la población, mediante la utilización de hotspot WiFi directamente a sus dispositivos móviles de manera fácil, fluida, cómoda a cambio de una módica suma de dinero. El objetivo es ganar, ganar.</p>
+                        <p><strong>3. Uso Permitido:</strong> El Servicio se proporciona para acceso temporal a Internet. El Usuario se compromete a utilizar el Servicio de manera legal, ética y responsable. El usuario adquirirá el plan de su preferencia pagando en bolívares, notificará el pago inmediatamente y a cambio se le dará acceso a internet continuo de acuerdo al plan. Las modalidades de venta son: (a) mediante vouchers impresos con la informacion requerida para acceder al servicio, que se podrá adquirir por medio de una persona autorizada; (b) mediante la comunicacion por WhatsApp ó SMS que aparece más abajo en ésta pagina web.</p>
+                        <p><strong>4. Prohibiciones:</strong> Queda estrictamente prohibido utilizar el Servicio para: (a) transmitir material ilegal, amenazante, abusivo, difamatorio, obsceno o de cualquier otra forma objetable; (b) violar derechos de propiedad intelectual; (c) distribuir virus, malware o cualquier código dañino; (d) realizar actividades de spamming o phishing; (e) intentar obtener acceso no autorizado a otros sistemas o redes; (f) revender o compartir el acceso sin autorización.</p>
+                        <p><strong>5. Seguridad:</strong> La conexión WiFi puede no ser segura. El Usuario es responsable de la seguridad de sus propios dispositivos y datos. Se recomienda el uso de VPN para información sensible.</p>
+                        <p><strong>6. Limitación de Responsabilidad:</strong> El proveedor del Servicio no garantiza la disponibilidad, velocidad o seguridad ininterrumpida del mismo. No seremos responsables por pérdidas de datos, daños a dispositivos o cualquier otro perjuicio derivado del uso o imposibilidad de uso del Servicio.</p>
+                        <p><strong>7. Modificaciones:</strong> Nos reservamos el derecho de modificar estos Términos en cualquier momento. El uso continuado del Servicio después de las modificaciones implica la aceptación de los nuevos Términos.</p>
+                        <p><strong>8. Suspensión/Terminación:</strong> Nos reservamos el derecho de suspender o terminar el acceso al Servicio a cualquier Usuario que viole estos Términos, sin previo aviso.</p>
+                        <p><strong>9. Legalidad:</strong> Somos personas que actuamos por el principio de buena fé y en base a las leyes venezolanas, podemos resolver cualquier inconveniente con el servicio, como personas civilizadas. Cualquier idemnización será a cambio del servicio proporcionado equivalente al tiempo de uso del servicio adquirido, en cuyo caso se le dará solamente un (01) voucher equivalente para uso del servicio que nó disfrutó. De no poder resolver de manera amistosa, las partes se someten a resolver cualquier situación mediante los tribunales venezolanos. Se elige a la ciudad de Valencia-Venezuela en cuyas leyes, las partes se obligan someterse.</p>
+                        <!-- Fin Términos -->
+                        </div>
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" value="" id="termsCheckbox" aria-labelledby="termsLabel">
+                            <label class="form-check-label" for="termsCheckbox" id="termsLabel">
+                                He leído y acepto los Términos y Condiciones.
+                            </label>
+                        </div>
+                    </div>
+                </details>
+                <!-- === Fin Sección Términos === -->
+
+                <!-- === Sección Planes Disponibles (Azul) === -->
+                <details id="plans-details"> <!-- ID añadido -->
+                    <summary><i class="bi bi-tags-fill"></i>Ver Planes Disponibles</summary>
+                    <div class="accordion-content">
+                        <ul class="plan-list" id="planListContainer">
+                            <li id="loadingPlans"><i class="bi bi-arrow-repeat"></i> Cargando planes...</li>
+                        </ul>
+                    </div>
+                </details>
+                <!-- === Fin Sección Planes === -->
+
+                <!-- === Sección Información de Pago (Verde) === -->
+                <details id="payment-details"> <!-- ID añadido -->
+                    <summary><i class="bi bi-credit-card-2-front-fill"></i>Información de Pago</summary>
+                    <div class="accordion-content">
+                        <!-- ▼▼▼ RELLENA CON TU INFORMACIÓN BANCARIA (MANTENIDA) ▼▼▼ -->
+                        <h6><i class="bi bi-bank"></i> Cuentas Bancarias</h6>
+                        <p><strong>Banco Banesco:</strong><br> Cuenta Ahorro<br> 0134-0135-7713-5236-7294<br> Titular: Raymond Soto<br> C.I.: V-16.085.001</p>
+                        <p><strong>Banco Provincial:</strong><br> Cuenta Corriente<br> 0108-0125-7601-0012-5862<br> Titular: Raymond Soto<br> C.I.: V-16.085.001</p>
+                        <hr>
+                        <!-- ▼▼▼ RELLENA CON TU INFORMACIÓN DE PAGO MÓVIL (MANTENIDA) ▼▼▼ -->
+                        <h6><i class="bi bi-phone-fill"></i> Pago Móvil</h6>
+                        <p><strong>Banco:</strong> Banco Banesco<br><strong>Teléfono:</strong> 0424-4264088<br><strong>C.I.:</strong> V-16.085.001<br><strong>Nota:</strong> Colocar el plan que quiere.</p>
+                        <hr>
+                        <p class="fw-bold"><i class="bi bi-exclamation-circle-fill me-1"></i> Importante: Enviar comprobante vía WhatsApp o SMS después del pago.</p>
+                    </div>
+                </details>
+                <!-- === Fin Sección Pago === -->
+
+                 <!-- === Sección Contacto WhatsApp (Gris) === -->
+                 <details id="contact-details"> <!-- ID añadido -->
+                    <summary><i class="bi bi-whatsapp"></i>Contacto y Soporte</summary>
+                    <div class="accordion-content text-center">
+                         <p class="mb-3">¿Necesitas ayuda o quieres reportar un pago?</p>
+                         <!-- ▼▼▼ AJUSTE ESPACIADO BOTONES Y AÑADIDOS IDs ▼▼▼ -->
+                        <a id="support-link" href="http://wa.me/584244264116?text=Hola%2C%20necesito%20ayuda%20con%20el%20servicio%20WiFi." target="_blank" class="btn whatsapp-btn me-3 mb-2"> <!-- ID y margen ajustado -->
+                            <i class="bi bi-headset"></i> Soporte Técnico
+                        </a>
+                        <a id="payment-link" href="http://wa.me/584244264116?text=Hola%2C%20realic%C3%A9%20un%20pago%20y%20quiero%20reportarlo." target="_blank" class="btn whatsapp-btn mb-2"> <!-- ID añadido -->
+                            <i class="bi bi-receipt-cutoff"></i> Reportar Pago
+                        </a>
+                         <p class="mt-3 mb-0 small text-muted">Si no puedes usar WhatsApp por falta de conexión, envía un SMS para reportar el pago a: <br><strong>+58 424-4264116</strong></p>
+                    </div>
+                </details>
+                 <!-- === Fin Contacto WhatsApp === -->
+
+            </div> <!-- Fin Acordeón CSS Puro -->
+
+            <footer class="footer-text">
+                <!-- ▼▼▼ AJUSTA SI QUIERES (MANTENIDO) ▼▼▼ -->
+                Ofrecido por Kevin Soto<br>Respaldado por Raymond Soto
+                <br>© <span id="currentYear"></span> Todos los derechos reservados ®
+            </footer>
+
+        </main> <!-- Fin login-body -->
+    </div> <!-- Fin login-container -->
+
+    <!-- ▼▼▼ OPTIMIZACIÓN CACHÉ MIKROTIK: MD5 JS (Local o CDN) ▼▼▼ -->
+    <!-- <script src="md5.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/blueimp-md5/2.19.0/js/md5.min.js" integrity="sha512-Hmp6qDy9imQmd15IFaFgoZZtLYUW6+NvpNFrPNDAlTfeN33lJUJDRCiXjK7pCUItClaWzU0mdDCc77LjsSMugA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Fin Optimización Caché -->
+
+    <script>
+        // --- PLANES DISPONIBLES (MANUALMENTE) ---
+        const availablePlans = [
+            { name: "Basico x 1 Dia", duration: "1 Día", price: "40 Bs." },
+            { name: "Basico x 1 Semana", duration: "7 Días", price: "200 Bs." },
+            { name: "Basico x 1 Mes", duration: "30 Días", price: "600 Bs." },
+            { name: "InterMedio x 1 Dia", duration: "1 Día", price: "80 Bs." },
+            { name: "InterMedio x 1 Semana", duration: "7 Días", price: "400 Bs." },
+            { name: "InterMedio x 1 Mes", duration: "30 Días", price: "1200 Bs." },
+            { name: "Premium x 1 Dia", duration: "1 Día", price: "200 Bs." },
+            { name: "Premium x 1 Semana", duration: "7 Días", price: "1000 Bs." },
+            { name: "Premium x 1 Mes", duration: "30 Días", price: "3000 Bs." },
+        ];
+        // --- FIN DE PLANES ---
+
+        // Función para mostrar los planes
+        function displayPlans() {
+            const container = document.getElementById('planListContainer');
+            const loadingIndicator = document.getElementById('loadingPlans');
+            if (!container) return;
+
+            if (availablePlans && availablePlans.length > 0) {
+                if(loadingIndicator) loadingIndicator.remove();
+                let plansHtml = '';
+                availablePlans.forEach(plan => {
+                    plansHtml += `
+                        <li>
+                            <strong>${plan.name}</strong><br>
+                            <small>
+                                Duración: ${plan.duration || 'N/D'} |
+                                <span class="plan-price">Precio: ${plan.price || 'N/D'}</span>
+                                ${plan.shared ? `| Disp.: ${plan.shared}` : ''}
+                            </small>
+                        </li>
+                    `;
+                });
+                container.innerHTML = plansHtml;
+            } else if (loadingIndicator) {
+                 loadingIndicator.innerHTML = '<i class="bi bi-exclamation-circle"></i> No hay planes definidos.';
+            }
+        }
+
+        // Función para aplicar tema Día/Noche y calcular RGB primario
+        function setTheme() {
+            const currentHour = new Date().getHours();
+            const bodyClassList = document.body.classList;
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            // let useDarkTheme = (currentHour >= 19 || currentHour < 6) || (currentHour >= 6 && currentHour < 8 && prefersDark);
+            let useDarkTheme = (currentHour >= 0 || currentHour < 24);
+
+            if (useDarkTheme) { bodyClassList.add('dark-theme'); }
+            else { bodyClassList.remove('dark-theme'); }
+
+             try {
+                 const primaryColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-color').trim();
+                 let r = 0, g = 0, b = 0;
+                 if (primaryColor.startsWith('#')) {
+                    const hex = primaryColor.substring(1);
+                    if (hex.length === 6) { r = parseInt(hex.substring(0, 2), 16); g = parseInt(hex.substring(2, 4), 16); b = parseInt(hex.substring(4, 6), 16); }
+                    else if (hex.length === 3) { r = parseInt(hex[0]+hex[0], 16); g = parseInt(hex[1]+hex[1], 16); b = parseInt(hex[2]+hex[2], 16); }
+                 }
+                 if (!isNaN(r) && !isNaN(g) && !isNaN(b)) {
+                    document.documentElement.style.setProperty('--primary-color-rgb', `${r},${g},${b}`);
+                 } else {
+                     const fallbackRgb = useDarkTheme ? '79, 70, 229' : '79, 70, 229';
+                     document.documentElement.style.setProperty('--primary-color-rgb', fallbackRgb);
+                 }
+             } catch (e) {
+                 console.error("Error calculating RGB for primary color:", e);
+                 const fallbackRgb = useDarkTheme ? '79, 70, 229' : '79, 70, 229';
+                 document.documentElement.style.setProperty('--primary-color-rgb', fallbackRgb);
+             }
+        }
+
+        // --- TRADUCCIÓN DE ERRORES MIKROTIK (ACTUALIZADA) ---
+        function translateErrorMessage() {
+            const errorSpan = document.querySelector('#messageArea .alert-danger span');
+            if (errorSpan && errorSpan.dataset.originalError) {
+                const originalError = errorSpan.dataset.originalError.trim();
+                const originalErrorLower = originalError.toLowerCase();
+                let translatedError = '';
+                let extraInfo = '';
+                let found = false;
+
+                const errorTranslations = {
+                    "invalid username or password": "Usuario o contraseña inválidos.",
+                    "user limit reached": "Se ha alcanzado el límite de usuarios conectados.",
+                    "session limit reached": "Se ha alcanzado el límite de sesiones.",
+                    "invalid mac address": "Dirección MAC inválida.",
+                    "profile not found": "Perfil de usuario no encontrado.",
+                    "no more sessions are allowed for user": "No se permiten más sesiones para este usuario.",
+                    "has reached uptime limit": "El usuario ha alcanzado el límite de tiempo de conexión para este plan/voucher.",
+                    "invalid password": "Contraseña inválida. (El usuario si existe), pero es posible que el voucher ya haya sido utilizado. Por favor, verifica los datos o adquiere un nuevo plan si es necesario.",
+                    "user not found": "Usuario no encontrado.",
+                    "already authorizing, retry later": "Proceso de autorización en curso. Por favor, espera un momento e intenta nuevamente.",
+                };
+
+                for (const key in errorTranslations) {
+                    if (originalErrorLower.includes(key)) {
+                        translatedError = errorTranslations[key];
+                        found = true;
+                        if (key === "invalid username or password") {
+                             extraInfo = " Es posible que el voucher ya haya sido utilizado, haya caducado o esté incorrecto. Por favor, verifica los datos o adquiere un nuevo plan si es necesario.";
+                        } else if (key === "has reached uptime limit") {
+                             extraInfo = " Por favor, adquiere un nuevo plan para continuar navegando.";
+                        }
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    const userNotFoundRegex = /^user (.*) not found$/i;
+                    const match = originalError.match(userNotFoundRegex);
+                    if (match && match[1]) {
+                        const username = match[1];
+                        translatedError = `Usuario "${username}" no encontrado.`;
+                        extraInfo = " Verifica que el nombre de usuario sea correcto o adquiere un nuevo plan si es necesario.";
+                        found = true;
+                    }
+                }
+
+                if (!found) {
+                    translatedError = `Error: ${originalError}`;
+                    console.warn("Error original no traducido:", originalError);
+                }
+                errorSpan.textContent = translatedError + extraInfo;
+            }
+        }
+        // --- FIN TRADUCCIÓN ---
+
+
+        // Lógica CHAP
+        function doChapLogin() {
+            const loginForm = document.forms.login;
+            const sendinForm = document.forms.sendin;
+            const passwordInput = loginForm.password;
+            const usernameInput = loginForm.username;
+
+            if (!loginForm || !sendinForm || !passwordInput || !usernameInput) {
+                 console.error("Formularios CHAP o campos no encontrados.");
+                 alert("Error interno al intentar iniciar sesión (CHAP).");
+                 return;
+            }
+            if (typeof md5 === 'undefined' && typeof hex_md5 === 'undefined') {
+                 console.error("Librería md5.js no cargada.");
+                 alert("Error: Falta un componente necesario para el inicio de sesión (MD5).");
+                 return;
+            }
+            const md5Function = (typeof md5 !== 'undefined') ? md5 : hex_md5;
+
+            try {
+                sendinForm.username.value = usernameInput.value;
+                sendinForm.password.value = md5Function('$(chap-id)' + passwordInput.value + '$(chap-challenge)');
+                sendinForm.submit();
+            } catch (e) {
+                console.error("Error en doChapLogin: ", e);
+                alert('Ocurrió un error al procesar el inicio de sesión (CHAP). Intenta de nuevo.');
+            }
+        }
+
+        // Verificar Términos antes de enviar (para PAP)
+        function checkTermsBeforeSubmit(event) {
+            const termsCheckbox = document.getElementById('termsCheckbox');
+            if (!termsCheckbox || !termsCheckbox.checked) {
+                alert('Debes aceptar los Términos y Condiciones para continuar.');
+                event.preventDefault();
+                return false;
+            }
+            return true;
+        }
+
+        // --- Lógica General de la Página ---
+        document.addEventListener('DOMContentLoaded', function() {
+            setTheme();
+            displayPlans();
+            translateErrorMessage();
+
+            const termsCheckbox = document.getElementById('termsCheckbox');
+            const connectButton = document.getElementById('connectButton');
+            const loginForm = document.getElementById('loginForm');
+            const trialButton = document.getElementById('trialButton');
+            const realTrialLink = document.getElementById('realTrialLink');
+            const accordionContainer = document.getElementById('accordionInfo');
+            const detailsElements = accordionContainer ? accordionContainer.querySelectorAll('details') : [];
+            const usernameInput = document.getElementById('username');
+            const currentYearSpan = document.getElementById('currentYear');
+            // ▼▼▼ Seleccionar enlaces de contacto ▼▼▼
+            const supportLink = document.getElementById('support-link');
+            const paymentLink = document.getElementById('payment-link');
+
+            if(currentYearSpan) {
+                currentYearSpan.textContent = new Date().getFullYear();
+            }
+
+            function toggleButtonVisualState() {
+                const isChecked = termsCheckbox && termsCheckbox.checked;
+                if(connectButton) { connectButton.classList.toggle('visually-disabled', !isChecked); }
+                if(trialButton) { trialButton.classList.toggle('visually-disabled', !isChecked); }
+            }
+
+            if (termsCheckbox) {
+                termsCheckbox.addEventListener('change', toggleButtonVisualState);
+                toggleButtonVisualState();
+            } else {
+                 if(connectButton) connectButton.classList.remove('visually-disabled');
+                 if(trialButton) trialButton.classList.remove('visually-disabled');
+            }
+
+            // Manejar clic en botón CONECTAR
+            if (connectButton) {
+                const isChap = $(if chap-id)true$(else)false$(endif);
+                if (isChap) {
+                    connectButton.setAttribute('type', 'button');
+                    connectButton.addEventListener('click', function(event) {
+                        const termsDetails = termsCheckbox?.closest('details');
+                        if (!termsCheckbox || !termsCheckbox.checked) {
+                            alert('Debes aceptar los Términos y Condiciones para continuar.');
+                            if (termsDetails && !termsDetails.open) termsDetails.open = true;
+                            return;
+                        }
+                        if (loginForm.username.value && loginForm.password.value) {
+                            doChapLogin();
+                        } else {
+                            alert('Por favor, ingresa tu usuario y contraseña.');
+                            if (!loginForm.username.value) loginForm.username.focus();
+                            else loginForm.password.focus();
+                        }
+                    });
+                } else { // Es PAP
+                     connectButton.addEventListener('click', function(event) {
+                        if (connectButton.classList.contains('visually-disabled')) {
+                             const termsDetails = termsCheckbox?.closest('details');
+                             if (!termsCheckbox || !termsCheckbox.checked) {
+                                alert('Debes aceptar los Términos y Condiciones para continuar.');
+                                if (termsDetails && !termsDetails.open) termsDetails.open = true;
+                             }
+                             event.preventDefault();
+                        }
+                    });
+                }
+            }
+
+             // Manejar clic en botón de PRUEBA GRATUITA
+             if (trialButton && realTrialLink) {
+                trialButton.addEventListener('click', function() {
+                    const termsDetails = termsCheckbox?.closest('details');
+                    if (trialButton.classList.contains('visually-disabled')) {
+                        if (!termsCheckbox || !termsCheckbox.checked) {
+                            alert('Debes aceptar los Términos y Condiciones para usar la prueba gratuita.');
+                            if (termsDetails && !termsDetails.open) termsDetails.open = true;
+                        }
+                        return;
+                    }
+                    alert('¡Activando 15 minutos gratis!\n\nAprovecha este tiempo para contactarnos por WhatsApp ó SMS y reportar tu pago, si todavía no lo hiciste.\n\nRecuerda: Solo puedes usar una prueba gratuita cada 24 horas.');
+                    window.location.href = realTrialLink.href;
+                });
+            }
+
+            // ▼▼▼ Manejar clic en botones de Contacto (Soporte y Pago) ▼▼▼
+            function handleContactClick(event) {
+                event.preventDefault(); // Prevenir acción por defecto (abrir WhatsApp)
+                alert('Envía un SMS para comunicarte a: +58 424-4264116'); // Mostrar alerta
+                // Abrir el enlace original en una nueva pestaña después de cerrar la alerta
+                window.open(this.href, '_blank');
+            }
+
+            if (supportLink) {
+                supportLink.addEventListener('click', handleContactClick);
+            }
+            if (paymentLink) {
+                paymentLink.addEventListener('click', handleContactClick);
+            }
+            // ▲▲▲ Fin manejo clic botones contacto ▲▲▲
+
+            // Lógica para Acordeón Exclusivo
+            detailsElements.forEach(details => {
+                details.addEventListener('toggle', event => {
+                    if (details.open) {
+                        detailsElements.forEach(otherDetails => {
+                            if (otherDetails !== details && otherDetails.open) {
+                                otherDetails.removeAttribute('open');
+                            }
+                        });
+                    }
+                });
+            });
+
+            // Enfocar campo usuario si está vacío
+            if (usernameInput && !usernameInput.value) {
+                setTimeout(() => { usernameInput.focus(); }, 100);
+            }
+
+        }); // Fin DOMContentLoaded
+
+    </script>
+
+</body>
+</html>
