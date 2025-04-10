@@ -1,93 +1,59 @@
-# original-10-04-2025-mejorar
+# Archivos de Mikrotik
 
 Repositorio que contiene archivos de configuración y recursos para router Mikrotik, especialmente enfocado en configuración de hotspot WiFi.
 
 ## Estructura del Repositorio
 
-```
-autosupout.old.rif
-autosupout.rif
-flash/
-	auto-before-reset.backup
-	certificate-login_wifihotspot_io-bundle.pem
-	certificate-login_wifihotspot_io-cert.pem
-	login_energiachina_com_04_03_2025_pem.pem
-	login_energiachina_com_04_03_2025-ca-bundle.pem
-	login_energiachina_com_19_11_2024_pem.pem
-	login_energiachina_com_19_11_2024.ca-bundle.pem
-	login_energiachina_com_20_06_2025-ca-bundle.pem
-	login_energiachina_com_20_06_2025.pem
-	login_fliber_online.ca-bundle.pem
-	login_fliber_online.pem
-	login_tuwifi_net_02_02_2024_pem.pem
-	login_tuwifi_net_02_02_2024.ca-bundle.pem
-	login_tuwifi_net_14_12_2023_pem.pem
-	login_tuwifi_net_14_12_2023.ca-bundle.pem
-	login_tuwifi_net_19_11_2024_pem.pem
-	login_tuwifi_net_19_11_2024.ca-bundle.pem
-	login_tuwifi_net_21_05_2024_pem.pem
-	login_tuwifi_net_21_05_2024.ca-bundle.pem
-	login_tuwifi_net_21_08_2024_pem.pem
-	login_tuwifi_net_21_08_2024.ca-bundle.pem
-	login_tuwifi_net_pem.pem
-	login_tuwifi_net.ca-bundle.pem
-	restore-mikrotik-casa-yadira-starthotspot-y-wlan1-activado-antes-de-actvar-pppoe-al-16-09-2022.rsc
-	hotspot/
-		alogin.html
-		api.json
-		error.html
-		errors.txt
-		favicon.ico
-		login.html
-		logout.html
-		md5.js
-		radvert.html
-		redirect.html
-		rlogin.html
-		status.html
-		css/
-			style.css
-		img/
-			password.svg
-			user.svg
-		xml/
-			alogin.html
-			error.html
-			flogout.html
-			login.html
-			logout.html
-			rlogin.html
-			WISPAccessGatewayParam.xsd
-	pub/
-	skins/
-	user-manager/
-		login.html
-		logsqldb
-		sqldb
-```
+### Archivos de Backup
+- `auto-before-reset.backup`: Backup automático generado antes de un reset del dispositivo
 
-## Descripción
+### Archivos de Configuración
+- `restore-mikrotik-casa-yadira-starthotspot-y-wlan1-activado-antes-de-actvar-pppoe-al-16-09-2022.rsc`: Script de configuración para restaurar ajustes específicos del hotspot y WLAN1
+- `autosupout.rif` y `autosupout.old.rif`: Archivos de soporte y diagnóstico del sistema
 
-Este repositorio contiene la configuración completa para un router Mikrotik con una configuración de hotspot WiFi personalizada. Incluye:
+### Certificados SSL
+El repositorio contiene múltiples certificados SSL para diferentes dominios utilizados en el hotspot:
+- Certificados para login.wifihotspot.io
+- Certificados para login.energiachina.com (varias fechas)
+- Certificados para login.fliber.online
+- Certificados para login.tuwifi.net (varias fechas)
 
-1. **Archivos de backup y configuración del sistema**
-   - Backups automáticos
-   - Scripts de restauración
-   - Archivos de soporte y diagnóstico
+Cada dominio incluye tanto el certificado principal (.pem) como el bundle de certificados de la CA (.ca-bundle.pem).
 
-2. **Certificados SSL**
-   - Certificados para varios dominios utilizados en el hotspot
-   - Archivos .pem y .ca-bundle para cada dominio
+### Recursos de Hotspot
+La carpeta `/hotspot` contiene todos los archivos necesarios para personalizar la página de login del hotspot:
 
-3. **Recursos del hotspot**
-   - Páginas HTML personalizadas para login, logout, errores, etc.
-   - Recursos CSS y JavaScript
-   - Imágenes e iconos
-   - Configuraciones XML
+#### Archivos HTML
+- `alogin.html`: Página de login automático
+- `login.html`: Página principal de login
+- `logout.html`: Página de cierre de sesión
+- `error.html`: Página de error
+- `status.html`: Página de estado
+- `redirect.html`: Página de redirección
+- `rlogin.html`: Página de relogin
+- `radvert.html`: Página de publicidad/anuncios
 
-4. **Administración de usuarios**
-   - Interfaz de login para administración
-   - Base de datos SQL para gestión de usuarios
+#### Recursos adicionales
+- `api.json`: Configuración de API
+- `errors.txt`: Mensajes de error
+- `favicon.ico`: Icono del sitio
+- `md5.js`: Script JavaScript para encriptación MD5
+
+#### Estilos y Recursos Visuales
+- Carpeta `css` con hojas de estilo
+- Carpeta `img` con iconos SVG para usuario y contraseña
+
+#### Recursos XML
+Archivos XML para la configuración del gateway WiFi y comunicación WISP.
+
+### Otras carpetas
+- `/pub`: Archivos públicos
+- `/skins`: Temas visuales
+- `/user-manager`: Gestor de usuarios con base de datos SQL
+
+## Uso
+
+Estos archivos son utilizados para configurar y personalizar un hotspot WiFi en un router Mikrotik. Los certificados SSL proporcionan conexiones seguras para las páginas de login, y los archivos HTML/CSS/JS personalizan la experiencia de usuario del portal cautivo.
 
 ---
 Última actualización: 10 de abril de 2025
